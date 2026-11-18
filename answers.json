@@ -143,5 +143,24 @@
       "b64decode"
     ],
     "explanation": "암호화 키가 소스코드 상수라 저장소·바이너리에서 그대로 유출된다. 입력값과 무관한 보안기능 약점이며 키는 소스코드 밖(환경변수·키 관리 시스템)에서 관리한다."
+  },
+  {
+    "id": "p09",
+    "file": "problems/p09.php",
+    "lines": [
+      6,
+      19
+    ],
+    "weakness": "취약한 암호 알고리즘",
+    "type": "보안기능",
+    "design": "암호연산",
+    "pattern": "\\b(md5|sha1)\\(",
+    "fix": "$hash = password_hash($password, PASSWORD_ARGON2ID);\n...\nreturn password_verify($password, $row['pw_hash']);",
+    "fix_keywords": [
+      "password_hash",
+      "password_verify",
+      "PASSWORD_ARGON2ID|PASSWORD_BCRYPT"
+    ],
+    "explanation": "MD5 는 충돌과 사전·레인보 테이블 공격에 취약하다. salt 가 포함된 안전한 해시(Argon2, bcrypt)를 쓴다."
   }
 ]
