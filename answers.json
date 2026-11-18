@@ -162,5 +162,31 @@
       "PASSWORD_ARGON2ID|PASSWORD_BCRYPT"
     ],
     "explanation": "MD5 는 충돌과 사전·레인보 테이블 공격에 취약하다. salt 가 포함된 안전한 해시(Argon2, bcrypt)를 쓴다."
+  },
+  {
+    "id": "p10",
+    "file": "problems/p10.py",
+    "lines": [
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "weakness": "평문 저장",
+    "type": "보안기능",
+    "design": "중요정보 저장·전송",
+    "pattern": "INSERT INTO cards",
+    "fix": "token = encrypt_card(request.form[\"card_no\"])\nconn.execute(\"INSERT INTO cards (user_id, holder, card_no, expiry) VALUES (?, ?, ?, ?)\", (uid, holder, token, expiry))",
+    "fix_keywords": [
+      "encrypt",
+      "AES",
+      "token"
+    ],
+    "explanation": "카드번호를 암호화하지 않고 DB 에 저장해 DB 유출 시 그대로 노출된다. 저장 전에 안전한 알고리즘(AES 등)으로 암호화한다."
   }
 ]
