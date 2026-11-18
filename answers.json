@@ -188,5 +188,23 @@
       "token"
     ],
     "explanation": "카드번호를 암호화하지 않고 DB 에 저장해 DB 유출 시 그대로 노출된다. 저장 전에 안전한 알고리즘(AES 등)으로 암호화한다."
+  },
+  {
+    "id": "p13",
+    "file": "problems/p13.py",
+    "lines": [
+      19
+    ],
+    "weakness": "오류 메시지를 통한 정보 노출",
+    "type": "에러처리",
+    "design": "예외처리",
+    "pattern": "traceback\\.format_exc\\(\\)|str\\(e\\)",
+    "fix": "logging.exception(\"report failed\")\nreturn jsonify(error=\"요청을 처리할 수 없습니다\"), 500",
+    "fix_keywords": [
+      "logging",
+      "일반",
+      "500"
+    ],
+    "explanation": "예외 메시지와 스택트레이스를 응답에 실어 내부 경로와 질의 구조가 노출된다. 상세 내용은 서버 로그에만 남기고 사용자에게는 일반 메시지를 준다."
   }
 ]
