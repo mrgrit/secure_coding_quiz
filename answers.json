@@ -206,5 +206,27 @@
       "500"
     ],
     "explanation": "예외 메시지와 스택트레이스를 응답에 실어 내부 경로와 질의 구조가 노출된다. 상세 내용은 서버 로그에만 남기고 사용자에게는 일반 메시지를 준다."
+  },
+  {
+    "id": "p14",
+    "file": "problems/p14.py",
+    "lines": [
+      8,
+      13,
+      14,
+      20,
+      22
+    ],
+    "weakness": "잘못된 세션에 의한 정보 노출",
+    "type": "캡슐화",
+    "design": "세션통제",
+    "pattern": "^\\s*global\\s+\\w+|^current_user\\s*=",
+    "fix": "from flask import session\n\nsession[\"user\"] = token\n...\nuser = USERS.get(session.get(\"user\"))",
+    "fix_keywords": [
+      "session",
+      "session.get",
+      "global 제거"
+    ],
+    "explanation": "로그인 사용자를 모듈 전역 변수에 저장해 요청 간에 공유되므로 다른 사용자가 직전 사용자의 정보를 보게 된다. 사용자별 세션에 저장한다."
   }
 ]
