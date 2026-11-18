@@ -43,5 +43,29 @@
       "UTF-8"
     ],
     "explanation": "검색어와 게시글 작성자·본문을 인코딩 없이 HTML 로 출력해 저장형·반사형 스크립트가 실행된다. 출력 시 HTML 인코딩한다."
+  },
+  {
+    "id": "p03",
+    "file": "problems/p03.php",
+    "lines": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "weakness": "크로스사이트 요청 위조(CSRF)",
+    "type": "입력데이터 검증 및 표현",
+    "design": "웹 기반 중요기능 수행 요청 검증",
+    "pattern": "\\$_POST\\[.to_account.\\]",
+    "fix": "if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {\n    http_response_code(403);\n    exit('invalid token');\n}",
+    "fix_keywords": [
+      "csrf_token",
+      "hash_equals",
+      "$_SESSION"
+    ],
+    "explanation": "세션 쿠키만으로 송금을 처리해 다른 사이트의 폼이 사용자 권한으로 요청을 보낼 수 있다. 세션에 묶인 일회성 토큰을 요청마다 검증한다."
   }
 ]
