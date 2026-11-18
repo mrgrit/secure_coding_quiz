@@ -107,5 +107,23 @@
       "429"
     ],
     "explanation": "실패 횟수 제한이나 잠금이 없어 무제한 대입 공격이 가능하다. 연속 실패 횟수를 세어 일정 횟수 이후 계정·IP 를 잠그거나 지연시킨다."
+  },
+  {
+    "id": "p06",
+    "file": "problems/p06.py",
+    "lines": [
+      14
+    ],
+    "weakness": "비밀번호 평문 기록",
+    "type": "보안기능",
+    "design": "비밀번호 관리",
+    "pattern": "logging\\.\\w+\\(.*password",
+    "fix": "logging.info(\"signup request user=%s\", username)",
+    "fix_keywords": [
+      "logging.info",
+      "username",
+      "password 제외"
+    ],
+    "explanation": "가입 요청 로그에 비밀번호를 평문으로 남겨 로그 열람자에게 노출된다. 비밀번호는 로그에 기록하지 않는다."
   }
 ]
